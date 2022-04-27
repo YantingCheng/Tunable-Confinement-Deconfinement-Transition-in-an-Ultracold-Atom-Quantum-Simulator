@@ -20,23 +20,17 @@ H_eff=H0(IsPhysical,IsPhysical);
 [groundstate, genergy] = eigs(H_eff,1,'smallestreal');
 
 n1=-1/2*(OnsitePauliMString(3,insertion_site,N_Sites)+OnsitePauliMString(3,insertion_site+1,N_Sites));
-%p1=sum(conj(groundstate).*(n1(IsPhysical,IsPhysical)*groundstate));
 
-%s2=ones(N_Sites,1);
-%s2(4:2:N_Sites)=0;
-%s2_index=BasisIndex(s2,IsPhysical);
-%p2=abs(groundstate(s2_index)).^2;
-%p2/p1
 
 if m<0
-    psi=n1(IsPhysical,IsPhysical)*groundstate;
+    phi=n1(IsPhysical,IsPhysical)*groundstate;
     v0=zeros(2^N_Sites,1);
-    v0(IsPhysical)=1/sqrt(psi'*psi)*psi;
+    v0(IsPhysical)=1/sqrt(phi'*phi)*phi;
 
 else
-    psi=(eye(Dim_Physical)-n1(IsPhysical,IsPhysical))*groundstate;
+    phi=(eye(Dim_Physical)-n1(IsPhysical,IsPhysical))*groundstate;
     v0=zeros(2^N_Sites,1);
-    v0(IsPhysical)=1/sqrt(psi'*psi)*psi;
+    v0(IsPhysical)=1/sqrt(phi'*phi)*phi;
 end
 
 if m<0
